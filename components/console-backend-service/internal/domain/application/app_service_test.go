@@ -736,6 +736,7 @@ func newDummyInformer() cache.SharedIndexInformer {
 
 func newTestServer(data string, statusCode int) *httptest.Server {
 	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Content-Security-Policy", "default-src")
 		w.WriteHeader(statusCode)
 		_, err := fmt.Fprintln(w, data)
 		if err != nil {
